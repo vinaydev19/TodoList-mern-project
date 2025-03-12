@@ -14,4 +14,12 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.json());
 
+app.use((err, req, res, next) => {
+  console.log(err.stack);
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
+});
+
 export default app;
