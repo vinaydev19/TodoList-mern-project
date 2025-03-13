@@ -14,6 +14,13 @@ app.use(cookieParser());
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.json());
 
+// router import
+import UserRouter from "./routes/user.routes.js";
+
+app.use("api/v1/users", UserRouter);
+
+
+// error use middleware
 app.use((err, req, res, next) => {
   console.log(err.stack);
   res.status(err.statusCode || 500).json({
